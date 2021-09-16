@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo "Cloning dependencies"
-git clone --depth=1 https://github.com/sohamxda7/llvm-stable  clang
+git clone --depth=1 https://github.com/Wstudiawan/xRageTC-clang clang
 git clone https://github.com/sohamxda7/llvm-stable -b gcc64 --depth=1 gcc
 git clone https://github.com/sohamxda7/llvm-stable -b gcc32  --depth=1 gcc32
 git clone --depth=1 https://github.com/Wstudiawan/AnyKernel3-1.git AnyKernel
@@ -49,9 +49,13 @@ function finerr() {
 }
 # Compile plox
 function compile() {
-    make O=out beryllium_defconfig
-    make -j$(nproc --all) O=out 
-                    
+    make O=out ARCH=arm64 beryllium_defconfig
+    make -j$(nproc --all) O=out \
+                    ARCH=arm64 \
+                    CC=clang \
+                    CLANG_TRIPLE=aarch64-linux-gnu- \
+                    CROSS_COMPILE=aarch64-linux-android- \
+                    CROSS_COMPILE_ARM32=arm-linux-androideabi-
 
     if ! [ -a "$IMAGE" ]; then
         finerr
