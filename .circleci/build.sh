@@ -50,7 +50,11 @@ function finerr() {
 # Compile plox
 function compile() {
     make O=out ARCH=arm64 beryllium_defconfig
-    make -j$(nproc --all) O=out 
+    make -j$(nproc --all) O=out \
+              ARCH=arm64 \
+              CROSS_COMPILE=aarch64-linux-android- \
+              CROSS_COMPILE_ARM32=arm-linux-androideabi-
+                  
 
     if ! [ -a "$IMAGE" ]; then
         finerr
