@@ -103,7 +103,7 @@ int __gfs2_set_acl(struct inode *inode, struct posix_acl *acl, int type)
 			mark_inode_dirty(inode);
 	}
 
- when inheriting ACLs)
+
 	if (acl) {
 		len = posix_acl_to_xattr(&init_user_ns, acl, NULL, 0);
 		if (len == 0)
