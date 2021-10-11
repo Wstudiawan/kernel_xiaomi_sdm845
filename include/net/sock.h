@@ -434,8 +434,8 @@ struct sock {
 
 	kuid_t			sk_uid;
 
-	__u32			sk_priority;
-	__u32			sk_mark;
+	
+	
 	spinlock_t		sk_peer_lock;
 
 	struct pid		*sk_peer_pid;
