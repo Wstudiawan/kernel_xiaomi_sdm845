@@ -527,10 +527,10 @@ KBUILD_CFLAGS += $(call cc-disable-warning, format-invalid-specifier)
 KBUILD_CFLAGS += $(call cc-disable-warning, gnu)
 KBUILD_CFLAGS += $(call cc-disable-warning, address-of-packed-member)
 KBUILD_CFLAGS += $(call cc-disable-warning, duplicate-decl-specifier)
-KBUILD_CFLAGS += -Wno-tautological-constant-out-of-range-compare
+KBUILD_CFLAGS += -w
 KBUILD_CFLAGS += $(call cc-option, -Wno-sometimes-uninitialized)
-KBUILD_CFLAGS += -Wno-asm-operand-widths
-KBUILD_CFLAGS += -Wno-initializer-overrides
+KBUILD_CFLAGS += -w
+KBUILD_CFLAGS += -w
 
 # Quiet clang warning: comparison of unsigned expression < 0 is always false
 
@@ -551,8 +551,8 @@ else
 KBUILD_CFLAGS += $(call cc-option,-fno-delete-null-pointer-checks,)
 # These warnings generated too much noise in a regular build.
 # Use make W=1 to enable them (see scripts/Makefile.build)
-KBUILD_CFLAGS += $(call cc-disable-warning, unused-but-set-variable)
-KBUILD_CFLAGS += $(call cc-disable-warning, unused-const-variable)
+KBUILD_CFLAGS += -w
+KBUILD_CFLAGS += -w
 endif
 
 
@@ -761,7 +761,7 @@ KBUILD_CFLAGS   += -O2
 endif
 
 ifdef CONFIG_CC_WERROR
-KBUILD_CFLAGS	+= -Werror
+KBUILD_CFLAGS	+= -w
 endif
 
 # Tell gcc to never replace conditional load with a non-conditional one
