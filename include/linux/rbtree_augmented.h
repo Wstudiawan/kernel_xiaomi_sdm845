@@ -45,7 +45,6 @@ extern void __rb_insert_augmented(struct rb_node *node,
 				  struct rb_root *root,
 				  bool newleft, struct rb_node **leftmost,
 	void (*augment_rotate)(struct rb_node *old, struct rb_node *new));
-
 /*
  * Fixup the rbtree and update the augmented information when rebalancing.
  *
@@ -70,16 +69,6 @@ rb_insert_augmented_cached(struct rb_node *node,
 {
 	__rb_insert_augmented(node, &root->rb_root,
 			      newleft, &root->rb_leftmost, augment->rotate);
-}
-
-static inline void
-rb_insert_augmented_cached(struct rb_node *node,
-			   struct rb_root_cached *root, bool newleft,
-			   const struct rb_augment_callbacks *augment)
-{
-	if (newleft)
-		root->rb_leftmost = node;
-	rb_insert_augmented(node, &root->rb_root, augment);
 }
 
 #define RB_DECLARE_CALLBACKS(rbstatic, rbname, rbstruct, rbfield,	\
@@ -112,9 +101,7 @@ rbname ## _rotate(struct rb_node *rb_old, struct rb_node *rb_new)	\
 	old->rbaugmented = rbcompute(old);				\
 }									\
 rbstatic const struct rb_augment_callbacks rbname = {			\
-	.propagate = rbname ## _propagate,				\
-	.copy = rbname ## _copy,					\
-	.rotate = rbname ## _rotate					\
+	rbname ## _propagate, rbname ## _copy, rbname ## _rotate	\
 };
 
 
@@ -292,17 +279,11 @@ static __always_inline void
 rb_erase_augmented_cached(struct rb_node *node, struct rb_root_cached *root,
 			  const struct rb_augment_callbacks *augment)
 {
-
-	if (root->rb_leftmost == node)
-		root->rb_leftmost = rb_next(node);
-	rb_erase_augmented(node, &root->rb_root, augment);
-
 	struct rb_node *rebalance = __rb_erase_augmented(node, &root->rb_root,
 							 &root->rb_leftmost,
 							 augment);
 	if (rebalance)
 		__rb_erase_color(rebalance, &root->rb_root, augment->rotate);
-
 }
 
 #endif	/* _LINUX_RBTREE_AUGMENTED_H */
