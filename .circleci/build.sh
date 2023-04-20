@@ -166,7 +166,7 @@ START=$(date +"%s")
 	       LLVM=1 \
 	       LLVM_IAS=1 \
 	       CROSS_COMPILE=aarch64-linux-gnu- \
-	       CROSS_COMPILE_COMPAT=arm-linux-gnueabi- \
+	       CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
 	       V=$VERBOSE 2>&1 | tee error.log
 	elif [ -d ${KERNEL_DIR}/gcc64 ];
 	   then
