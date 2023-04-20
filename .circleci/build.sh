@@ -173,7 +173,7 @@ START=$(date +"%s")
            make O=out ARCH=arm64 ${DEFCONFIG}
 	       make -kj$(nproc --all) O=out \
 	       ARCH=arm64 \
-	       CROSS_COMPILE_ARM32=arm-eabi- \
+	       CROSS_COMPILE_COMPAT=arm-eabi- \
 	       CROSS_COMPILE=aarch64-elf- \
 	       AR=llvm-ar \
 	       NM=llvm-nm \
