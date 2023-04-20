@@ -43,7 +43,7 @@ FINAL_ZIP2=${ZIPNAME}-${VERSION}-${DEVICE}-KERNEL-MIUI-${TANGGAL}.zip
 
 ##----------------------------------------------------------##
 # Specify compiler [ proton, atomx, eva, aosp ]
-COMPILER=proton
+COMPILER=eva
 
 ##----------------------------------------------------------##
 # Clone ToolChain
@@ -173,7 +173,7 @@ START=$(date +"%s")
            make O=out ARCH=arm64 ${DEFCONFIG}
 	       make -kj$(nproc --all) O=out \
 	       ARCH=arm64 \
-	       CROSS_COMPILE_COMPAT=arm-eabi- \
+	       CROSS_COMPILE_ARM32=arm-eabi- \
 	       CROSS_COMPILE=aarch64-elf- \
 	       AR=llvm-ar \
 	       NM=llvm-nm \
@@ -192,7 +192,7 @@ START=$(date +"%s")
 	       LLVM_IAS=1 \
 	       CLANG_TRIPLE=aarch64-linux-gnu- \
 	       CROSS_COMPILE=aarch64-linux-android- \
-	       CROSS_COMPILE_COMPAT=arm-linux-androideabi- \
+	       CROSS_COMPILE_ARM32=arm-linux-androideabi- \
 	       V=$VERBOSE 2>&1 | tee error.log
 	fi
 	
