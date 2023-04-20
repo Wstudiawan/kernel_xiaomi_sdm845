@@ -10,8 +10,8 @@ KERNEL_DIR="$(pwd)"
 
 ##----------------------------------------------------------##
 # Device Name and Model
-MODEL=Poco
-DEVICE=Munch
+MODEL=Pocophone F1
+DEVICE=beryllium
 
 # Kernel Version Code
 VERSION=BETA
@@ -43,7 +43,7 @@ FINAL_ZIP2=${ZIPNAME}-${VERSION}-${DEVICE}-KERNEL-MIUI-${TANGGAL}.zip
 
 ##----------------------------------------------------------##
 # Specify compiler [ proton, atomx, eva, aosp ]
-COMPILER=eva
+COMPILER=aosp
 
 ##----------------------------------------------------------##
 # Clone ToolChain
@@ -173,7 +173,7 @@ START=$(date +"%s")
            make O=out ARCH=arm64 ${DEFCONFIG}
 	       make -kj$(nproc --all) O=out \
 	       ARCH=arm64 \
-	       CROSS_COMPILE_COMPAT=arm-eabi- \
+	       CROSS_COMPILE_ARM32=arm-eabi- \
 	       CROSS_COMPILE=aarch64-elf- \
 	       AR=llvm-ar \
 	       NM=llvm-nm \
